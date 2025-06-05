@@ -22,7 +22,7 @@ public class StartApp implements ApplicationRunner {
         System.out.println("--------------");
 
         Brand brand1 = new Brand();
-        brand1.setName("Ford");
+        brand1.setName("Fiat");
         repository.save(brand1);
         System.out.println(brand1.getId());
     }
