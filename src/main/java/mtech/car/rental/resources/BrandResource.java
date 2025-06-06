@@ -1,6 +1,8 @@
 package mtech.car.rental.resources;
 
-import mtech.car.rental.Entities.Brand;
+import mtech.car.rental.model.BrandEntity;
+import mtech.car.rental.model.BrandRequest;
+import mtech.car.rental.model.BrandResponse;
 import mtech.car.rental.services.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,32 +20,32 @@ public class BrandResource {
     private BrandService service;
 
     @GetMapping
-    public ResponseEntity<List<Brand>> findAll() {
-        List<Brand> brands = service.findAll();
+    public ResponseEntity<List<BrandResponse>> findAll() {
+        List<BrandResponse> brands = service.findAll();
 
         return ResponseEntity.ok().body(brands);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Brand> findById(@PathVariable Integer id) {
-        Brand brand = service.findById(id);
+    public ResponseEntity<BrandResponse> findById(@PathVariable Integer id) {
+        BrandResponse brand = service.findById(id);
 
         return ResponseEntity.ok().body(brand);
     }
 
     @PostMapping
-    public ResponseEntity<Brand> insert(@RequestBody Brand brand) {
-        brand = service.insert(brand);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(brand.getId()).toUri();
+    public ResponseEntity<BrandResponse> insert(@RequestBody BrandRequest request) {
+        BrandResponse brandResponse = service.insert(request);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(brandResponse.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(brand);
+        return ResponseEntity.created(uri).body(brandResponse);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Brand> updateById(@PathVariable Integer id, @RequestBody Brand brand) {
-        brand = service.updateById(id, brand);
+    public ResponseEntity<BrandResponse> updateById(@PathVariable Integer id, @RequestBody BrandRequest request) {
+        BrandResponse brandResponse = service.updateById(id, request);
 
-        return ResponseEntity.ok().body(brand);
+        return ResponseEntity.ok().body(brandResponse);
     }
 
     @DeleteMapping(value = "/{id}")
