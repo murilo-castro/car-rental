@@ -1,6 +1,7 @@
 package mtech.car.rental.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import mtech.car.rental.infra.business.ResourceNotFoundException;
 import mtech.car.rental.model.BrandEntity;
 import mtech.car.rental.model.BrandRequest;
 import mtech.car.rental.model.BrandResponse;
@@ -22,7 +23,7 @@ public class BrandService {
     }
 
     public BrandEntity findEntityById(Integer id) {
-        return repository.findById(id).orElseThrow(()-> new EntityNotFoundException("Resource not found"));
+        return repository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
     public BrandResponse findById(Integer id) {
@@ -42,7 +43,7 @@ public class BrandService {
             throw new IllegalArgumentException("Id cannot be null");
 
         if (!repository.existsById(id))
-            throw new EntityNotFoundException("Resource not found");
+            throw new ResourceNotFoundException();
 
         repository.deleteById(id);
     }
