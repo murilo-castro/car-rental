@@ -1,6 +1,6 @@
 package mtech.car.rental.services;
 
-import jakarta.persistence.EntityNotFoundException;
+import mtech.car.rental.infra.business.RequiredFieldException;
 import mtech.car.rental.infra.business.ResourceNotFoundException;
 import mtech.car.rental.model.BrandEntity;
 import mtech.car.rental.model.BrandRequest;
@@ -39,33 +39,19 @@ public class BrandService {
     }
 
     public void deleteById(Integer id) {
-        if ( id == null)
-            throw new IllegalArgumentException("Id cannot be null");
-
-        if (!repository.existsById(id))
-            throw new ResourceNotFoundException();
+        BrandEntity brand = findEntityById(id);
 
         repository.deleteById(id);
     }
 
     private BrandEntity saveData(Integer id, BrandRequest request) {
-        validateParam(request);
+        if (request.getName() == null || request.getName().isEmpty() || request.getName().isBlank())
+            throw new RequiredFieldException();
+
         BrandEntity brandEntity = id != null ? findEntityById(id) : new BrandEntity();
         BeanUtils.copyProperties(request, brandEntity);
 
         return repository.save(brandEntity);
-    }
-
-    private void updateData(BrandEntity brandEntity, BrandRequest request) {
-        brandEntity.setName(request.getName());
-    }
-
-    private void validateParam(BrandRequest brand) {
-        if (brand.getName() == null)
-            throw new IllegalArgumentException("Brand name cannot be null");
-
-        if (brand.getName().isEmpty() || brand.getName().isBlank())
-            throw new IllegalArgumentException("Brand name cannot be blank.");
     }
 
     public BrandResponse convertResponse(BrandEntity entity) {
