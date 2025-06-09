@@ -1,4 +1,4 @@
-package mtech.car.rental.model;
+package mtech.car.rental.model.brand;
 
 import lombok.Getter;
 import lombok.Setter;

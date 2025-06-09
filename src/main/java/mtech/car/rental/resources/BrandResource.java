@@ -2,9 +2,8 @@ package mtech.car.rental.resources;
 
 import mtech.car.rental.infra.http.Response;
 import mtech.car.rental.infra.http.ResponseFactory;
-import mtech.car.rental.model.BrandEntity;
-import mtech.car.rental.model.BrandRequest;
-import mtech.car.rental.model.BrandResponse;
+import mtech.car.rental.model.brand.BrandRequest;
+import mtech.car.rental.model.brand.BrandResponse;
 import mtech.car.rental.services.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

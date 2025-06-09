@@ -1,6 +1,5 @@
-package mtech.car.rental.model;
+package mtech.car.rental.model.brand;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 

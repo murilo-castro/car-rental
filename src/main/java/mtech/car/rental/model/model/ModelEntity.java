@@ -1,4 +1,4 @@
-package mtech.car.rental.model;
+package mtech.car.rental.model.model;
 // Padâo Java Beans
 
 import jakarta.persistence.*;
@@ -7,10 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_brand")
+@Table(name = "tb_model")
 @Getter
 @Setter
-public class BrandEntity {
+public class ModelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)

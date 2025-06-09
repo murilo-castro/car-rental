@@ -2,10 +2,10 @@ package mtech.car.rental.services;
 
 import mtech.car.rental.infra.business.RequiredFieldException;
 import mtech.car.rental.infra.business.ResourceNotFoundException;
-import mtech.car.rental.model.brand.BrandEntity;
-import mtech.car.rental.model.brand.BrandRequest;
-import mtech.car.rental.model.brand.BrandResponse;
-import mtech.car.rental.repositories.BrandRepository;
+import mtech.car.rental.model.model.ModelEntity;
+import mtech.car.rental.model.model.ModelRequest;
+import mtech.car.rental.model.model.ModelResponse;
+import mtech.car.rental.repositories.ModelRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,48 +14,48 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BrandService {
+public class ModelService {
     @Autowired
-    private BrandRepository repository;
+    private ModelRepository repository;
 
-    public List<BrandResponse> findAll() {
+    public List<ModelResponse> findAll() {
         return repository.findAll().stream().map(this::convertResponse).collect(Collectors.toList());
     }
 
-    public BrandEntity findEntityById(Integer id) {
+    public ModelEntity findEntityById(Integer id) {
         return repository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
-    public BrandResponse findById(Integer id) {
+    public ModelResponse findById(Integer id) {
         return convertResponse(findEntityById(id));
     }
 
-    public BrandResponse insert(BrandRequest request) {
+    public ModelResponse insert(ModelRequest request) {
         return convertResponse(saveData(null, request));
     }
 
-    public BrandResponse updateById(Integer id, BrandRequest request) {
+    public ModelResponse updateById(Integer id, ModelRequest request) {
         return convertResponse(saveData(id, request));
     }
 
     public void deleteById(Integer id) {
-        BrandEntity brand = findEntityById(id);
+        ModelEntity model = findEntityById(id);
 
         repository.deleteById(id);
     }
 
-    private BrandEntity saveData(Integer id, BrandRequest request) {
+    private ModelEntity saveData(Integer id, ModelRequest request) {
         if (request.getName() == null || request.getName().isEmpty() || request.getName().isBlank())
             throw new RequiredFieldException();
 
-        BrandEntity brandEntity = id != null ? findEntityById(id) : new BrandEntity();
-        BeanUtils.copyProperties(request, brandEntity);
+        ModelEntity modelEntity = id != null ? findEntityById(id) : new ModelEntity();
+        BeanUtils.copyProperties(request, modelEntity);
 
-        return repository.save(brandEntity);
+        return repository.save(modelEntity);
     }
 
-    public BrandResponse convertResponse(BrandEntity entity) {
-        BrandResponse response = new BrandResponse();
+    public ModelResponse convertResponse(ModelEntity entity) {
+        ModelResponse response = new ModelResponse();
         BeanUtils.copyProperties(entity, response);
 
         return response;
