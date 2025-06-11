@@ -6,7 +6,6 @@ import mtech.car.rental.model.model.ModelRequest;
 import mtech.car.rental.model.model.ModelResponse;
 import mtech.car.rental.services.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,6 +22,13 @@ public class ModelResource {
     @GetMapping
     public Response findAll() {
         List<ModelResponse> models = service.findAll();
+
+        return ResponseFactory.ok(models);
+    }
+
+    @GetMapping(value = "/brand/{brandId}")
+    public Response findAllByBrandId(@PathVariable Integer brandId) {
+        List<ModelResponse> models = service.findAll(brandId);
 
         return ResponseFactory.ok(models);
     }

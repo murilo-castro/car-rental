@@ -6,7 +6,6 @@ import mtech.car.rental.model.brand.BrandRequest;
 import mtech.car.rental.model.brand.BrandResponse;
 import mtech.car.rental.services.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

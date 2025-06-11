@@ -26,6 +26,14 @@ public class ModelService {
                 .collect(Collectors.toList());
     }
 
+    public List<ModelResponse> findAll(Integer brand_id) {
+        return repository.findByBrandId(brand_id)
+                .stream()
+                .filter(model -> !model.isDeleted())
+                .map(this::convertResponse)
+                .collect(Collectors.toList());
+    }
+
     public ModelEntity findEntityById(Integer id) {
 
         return repository.findById(id)

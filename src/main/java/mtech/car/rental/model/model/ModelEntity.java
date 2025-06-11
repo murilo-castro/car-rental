@@ -19,4 +19,7 @@ public class ModelEntity {
     @Column(nullable = false, length = 30)
     private String name;
     private boolean deleted;
+
+    @Column(name = "brand_id")
+    private Integer brandId;
 }
