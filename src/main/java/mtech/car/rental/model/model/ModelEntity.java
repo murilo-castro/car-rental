@@ -18,4 +18,5 @@ public class ModelEntity {
 
     @Column(nullable = false, length = 30)
     private String name;
+    private boolean deleted;
 }

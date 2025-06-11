@@ -50,9 +50,9 @@ public class BrandResource {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
+    public Response deleteById(@PathVariable Integer id) {
         service.deleteById(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseFactory.ok(true, "Successfully deleted.");
     }
 }

@@ -39,7 +39,7 @@ public class ModelResource {
         ModelResponse model = service.insert(request);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(model.getId()).toUri();
 
-        return ResponseFactory.create(model, "Resource available at: " + uri);
+        return ResponseFactory.create(model, "Resource created successfully, available in: " + uri);
     }
 
     @PutMapping(value = "/{id}")
@@ -50,9 +50,9 @@ public class ModelResource {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
+    public Response deleteById(@PathVariable Integer id) {
         service.deleteById(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseFactory.ok(true, "Successfully deleted.");
     }
 }

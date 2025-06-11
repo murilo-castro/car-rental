@@ -19,11 +19,18 @@ public class ModelService {
     private ModelRepository repository;
 
     public List<ModelResponse> findAll() {
-        return repository.findAll().stream().map(this::convertResponse).collect(Collectors.toList());
+        return repository.findAll()
+                .stream()
+                .filter(model -> !model.isDeleted())
+                .map(this::convertResponse)
+                .collect(Collectors.toList());
     }
 
     public ModelEntity findEntityById(Integer id) {
-        return repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+
+        return repository.findById(id)
+                .filter(model1 -> !model1.isDeleted())
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     public ModelResponse findById(Integer id) {
@@ -40,8 +47,8 @@ public class ModelService {
 
     public void deleteById(Integer id) {
         ModelEntity model = findEntityById(id);
-
-        repository.deleteById(id);
+        model.setDeleted(true);
+        repository.save(model);
     }
 
     private ModelEntity saveData(Integer id, ModelRequest request) {

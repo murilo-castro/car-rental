@@ -19,11 +19,17 @@ public class BrandService {
     private BrandRepository repository;
 
     public List<BrandResponse> findAll() {
-        return repository.findAll().stream().map(this::convertResponse).collect(Collectors.toList());
+        return repository.findAll()
+                .stream()
+                .filter(brand -> !brand.isDeleted())
+                .map(this::convertResponse)
+                .collect(Collectors.toList());
     }
 
     public BrandEntity findEntityById(Integer id) {
-        return repository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        return repository.findById(id)
+                .filter(model -> !model.isDeleted())
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     public BrandResponse findById(Integer id) {
@@ -40,8 +46,8 @@ public class BrandService {
 
     public void deleteById(Integer id) {
         BrandEntity brand = findEntityById(id);
-
-        repository.deleteById(id);
+        brand.setDeleted(true);
+        repository.save(brand);
     }
 
     private BrandEntity saveData(Integer id, BrandRequest request) {
