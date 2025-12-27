@@ -1,4 +1,4 @@
-package mtech.car.rental.model;
+package mtech.car.rental.model.brand;
 // Padâo Java Beans
 
 import jakarta.persistence.*;
@@ -18,4 +18,5 @@ public class BrandEntity {
 
     @Column(nullable = false, length = 30)
     private String name;
+    private boolean deleted;
 }
